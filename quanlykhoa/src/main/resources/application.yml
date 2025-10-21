@@ -1,0 +1,18 @@
+server:
+  port: 8080
+
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/quanlykhoa
+    username: postgres
+    password: "123"   # đổi đúng mật khẩu của bạn
+  jpa:
+    hibernate:
+      ddl-auto: update     # hoặc validate nếu bạn đã có bảng sẵn
+    properties:
+      hibernate:
+        format-sql: true
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+  jackson:
+    serialization:
+      write-dates-as-timestamps: false
