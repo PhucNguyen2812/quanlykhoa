@@ -1,0 +1,14 @@
+Xây dựng Website quản lý nội bộ Khoa Công nghệ thông tin, trường Đại học DTM. TP. Hồ Chí Minh với các yêu cầu:
+ 1. Phân tích thiết kế hệ thống;
+ 2. Cài đặt ứng dụng gồm các chức năng sau:
+ - Quản trị người dùng
+ - Quản lý danh mục: giáo viên, thông báo, văn bản, biểu mẫu,quyết định, dự thảo,...
+ - Quản lý báo cáo của các bộ phận: bộ môn, đoàn thanh niên, tổ công đoàn, tổ đảm bảo
+ - Quản lý lịch công tác: lịch công tác chung, lịch công tác cá nhân
+ - Quản lý công việc: tạo mới công việc, tự động tạo công việc của giáo viên, nhân viên từ lịch công tác tương ứng, cảnh báo công việc mới, công việc sắp đến hạn, công việc trễ hạn, báo cáo tỷ lệ hoàn thành công việc
+ - Quản lý tài liệu giảng dạy: đề cương, giáo trình/bài giảng đã nghiệm thuc, giáo trình/bài giảng chưa nghiệm thu, thư viện Ebook
+ - Phê duyệt hồ sơ giảng dạy: giáo viên cập nhật hồ sơ giảng dạy, Bộ môn, Khoa kiểm tra và phê duyệt hoặc từ chối hồ sơ giảng dạy
+ - Quản lý đề nghị: giáo viên gửi đề nghị, trưởng bộ môn/trưởng khoa duyệt đề nghị
+ - Quản lý khảo sát: tạo phiếu khảo sát,quản lý kết quả khảo sát
+ - Quản lý lấy ý kiến: tạo phiếu lấy ý kiến, tổng hợp ý kiến đóng góp
+ - Tìm kiếm, báo cáo thống kê
