@@ -17,7 +17,6 @@ public class Nhom {
 
     @PostMapping
     public edu.kcntt.quanlykhoa.entity.Nhom taoNhom(@RequestBody Map<String, Object> body) {
-        // TODO: thay bằng user thật sau khi tích hợp security
         NguoiDung mock = new NguoiDung();
         mock.setId(UUID.fromString("00000000-0000-0000-0000-000000000001"));
         mock.setVaiTro(NguoiDung.VaiTro.TBM);
