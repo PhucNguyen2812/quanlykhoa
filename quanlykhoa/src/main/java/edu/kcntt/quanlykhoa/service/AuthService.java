@@ -5,7 +5,7 @@ import edu.kcntt.quanlykhoa.entity.NguoiDung;
 import edu.kcntt.quanlykhoa.exception.BusinessException;
 import edu.kcntt.quanlykhoa.repository.NguoiDungRepository;
 import edu.kcntt.quanlykhoa.security.JwtUtil;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.Map;
@@ -16,10 +16,10 @@ public class AuthService {
     private static final String EDU_DOMAIN = "@gv.edu.vn";
 
     private final NguoiDungRepository repo;
-    private final BCryptPasswordEncoder encoder;
+    private PasswordEncoder encoder;
     private final JwtUtil jwt;
 
-    public AuthService(NguoiDungRepository repo, BCryptPasswordEncoder encoder, JwtUtil jwt) {
+    public AuthService(NguoiDungRepository repo, PasswordEncoder encoder, JwtUtil jwt) {
         this.repo = repo;
         this.encoder = encoder;
         this.jwt = jwt;

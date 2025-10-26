@@ -1,24 +1,40 @@
 import { Outlet, Link } from "react-router-dom";
+import { useState } from "react";
 import UserMenu from "../components/UserMenu";
+import Sidebar from "../components/Sidebar";
+import AddGroupDialog from "../components/dialogs/AddGroupDialog";
+import JoinGroupDialog from "../components/dialogs/JoinGroupDialog";
 
 export default function AppFrame() {
+  const [showAddGroup, setShowAddGroup] = useState(false);
+  const [showJoinGroup, setShowJoinGroup] = useState(false);
+
+  // cho UserMenu gọi
+  (window as any).openAddGroup = () => setShowAddGroup(true);
+  (window as any).openJoinGroup = () => setShowJoinGroup(true);
+
   return (
     <div className="min-h-screen bg-[#f7f9fc]">
-      {/* Top bar */}
-      <header className="sticky top-0 z-40 bg-white/90 backdrop-blur border-b border-gray-100">
-        <div className="mx-auto max-w-7xl px-4 h-14 flex items-center justify-between">
-          <Link to="/" className="flex items-center gap-2">
-            <div className="w-8 h-8 rounded-md bg-emerald-500 grid place-items-center text-white font-bold">L</div>
-            <span className="text-lg font-semibold">Lớp học</span>
-          </Link>
+      <header className="sticky top-0 z-10 bg-white border-b">
+        <div className="max-w-6xl mx-auto h-14 px-4 flex items-center justify-between">
+          <Link to="/" className="font-semibold text-lg">Nhóm</Link>
           <UserMenu />
         </div>
       </header>
 
-      {/* Nội dung trang */}
-      <main className="mx-auto max-w-7xl px-4 py-6">
+      <div className="max-w-6xl mx-auto px-4 py-6 flex gap-6">
+        <Sidebar />
+        <main className="flex-1">
         <Outlet />
-      </main>
+        </main>
+      </div>
+
+      {showAddGroup && (
+        <AddGroupDialog open={showAddGroup} onClose={() => setShowAddGroup(false)} />
+      )}
+      {showJoinGroup && (
+        <JoinGroupDialog onClose={() => setShowJoinGroup(false)} onJoined={() => setShowJoinGroup(false)} />
+      )}
     </div>
   );
 }

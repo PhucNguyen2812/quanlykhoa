@@ -1,32 +1,44 @@
 package edu.kcntt.quanlykhoa.controller;
 
-import edu.kcntt.quanlykhoa.entity.NguoiDung;
-import edu.kcntt.quanlykhoa.service.NhomService;
-import org.springframework.web.bind.annotation.*;
+import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RestController;
 
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
+
+import edu.kcntt.quanlykhoa.repository.NguoiDungRepository;
+import edu.kcntt.quanlykhoa.service.NhomService;
 
 @RestController
-@RequestMapping("/api/nhom")
+@RequiredArgsConstructor
 public class Nhom {
 
-    private final NhomService service;
+    private final NhomService nhomService;
+    private final NguoiDungRepository nguoiDungRepository;
 
-    public Nhom(NhomService service) { this.service = service; }
-
-    @PostMapping
-    public edu.kcntt.quanlykhoa.entity.Nhom taoNhom(@RequestBody Map<String, Object> body) {
-        NguoiDung mock = new NguoiDung();
-        mock.setId(UUID.fromString("00000000-0000-0000-0000-000000000001"));
-        mock.setVaiTro(NguoiDung.VaiTro.TBM);
-
-        String maLop = (String) body.get("maLop");
-        String tenLop = (String) body.get("tenLop");
-        String namHoc = (String) body.get("namHoc");
-        String moTa   = (String) body.getOrDefault("moTa", "");
-        UUID donViId  = body.get("donViId") == null ? null : UUID.fromString((String) body.get("donViId"));
-
-        return service.taoNhom(mock, maLop, tenLop, namHoc, donViId, moTa);
+ 
+    private UUID currentUserId() {
+    var auth = SecurityContextHolder.getContext().getAuthentication();
+    if (auth == null || !auth.isAuthenticated()) {
+        throw new RuntimeException("Chưa xác thực");
     }
+
+    // Spring luôn set getName() = username (thường là email) của user đã xác thực
+    String username = auth.getName(); // ví dụ: tk@gv.edu.vn
+
+    return nguoiDungRepository.findByEmailIgnoreCase(username)
+            .map(ng -> ng.getId())
+            .orElseThrow(() -> new RuntimeException("Không tìm thấy user: " + username));
+}
+
+
+    @GetMapping("/api/nhom")
+    public List<Map<String, Object>> listMyGroups() {
+        UUID uid = currentUserId();
+        return nhomService.listMyGroups(uid);
+    }
+
 }

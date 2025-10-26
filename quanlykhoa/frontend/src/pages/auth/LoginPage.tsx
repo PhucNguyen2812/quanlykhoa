@@ -1,4 +1,3 @@
-// frontend/src/pages/auth/LoginPage.tsx
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
@@ -21,7 +20,7 @@ export default function LoginPage() {
       await login(email.trim(), password);
       nav("/", { replace: true });
     } catch (e: any) {
-      setErr(e.message || "Đăng nhập thất bại");
+      setErr(e?.message || "Đăng nhập thất bại");
     }
   }
 

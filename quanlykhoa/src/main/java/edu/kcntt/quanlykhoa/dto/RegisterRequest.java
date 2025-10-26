@@ -1,4 +1,4 @@
-package edu.kcntt.quanlykhoa.auth.dto;
+package edu.kcntt.quanlykhoa.dto;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;

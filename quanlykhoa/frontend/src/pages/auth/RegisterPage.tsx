@@ -1,4 +1,3 @@
-// frontend/src/pages/auth/RegisterPage.tsx
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { apiRegister } from "../../services/api";
@@ -26,8 +25,8 @@ export default function RegisterPage() {
       localStorage.setItem("token", res.token);
       localStorage.setItem("user", JSON.stringify(res.user));
       nav("/", { replace: true });
-    } catch (e: any) {
-      setErr(e.message || "Đăng ký thất bại");
+    } catch (e:any) {
+      setErr(e?.message || "Đăng ký thất bại");
     }
   }
 

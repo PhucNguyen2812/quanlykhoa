@@ -106,7 +106,7 @@ function App() {
 
         <button className="flex items-center w-full p-3 rounded-lg mb-2 hover:bg-gray-100 mt-4">
           <Archive className="w-5 h-5 mr-3" />
-          <span>Lớp học đã lưu trữ</span>
+          <span>Nhóm đã lưu trữ</span>
         </button>
 
         <button className="flex items-center w-full p-3 rounded-lg mb-2 hover:bg-gray-100">
@@ -129,7 +129,7 @@ function App() {
             <span className="text-white font-bold">📚</span>
           </div>
           <div className="flex items-center">
-            <span className="text-xl font-normal text-gray-700">Lớp học</span>
+            <span className="text-xl font-normal text-gray-700">Nhóm</span>
             {selectedClass && (
               <>
                 <span className="mx-2 text-gray-400">›</span>

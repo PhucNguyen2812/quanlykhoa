@@ -34,7 +34,23 @@ export default function UserMenu() {
             <div className="text-sm font-medium">{user?.hoTen || "Tài khoản"}</div>
             <div className="text-xs text-gray-500 truncate">{user?.email}</div>
           </div>
+          
+          {(user?.vaiTro === 'TBM' || user?.vaiTro === 'TK') && (
+            <button
+              onClick={() => { setOpen(false); (window as any).openAddGroup?.(); }}
+              className="w-full text-left px-4 py-3 text-sm hover:bg-gray-50"
+            >
+              ➕ Thêm nhóm
+            </button>
+          )}
+          <button
+            onClick={() => { setOpen(false); (window as any).openJoinGroup?.(); }}
+            className="w-full text-left px-4 py-3 text-sm hover:bg-gray-50"
+          >
+            🔗 Tham gia nhóm
+          </button>
           <div className="h-px bg-gray-100" />
+
           <button
             onClick={() => { setOpen(false); logout(); }}
             className="w-full text-left px-4 py-3 text-sm hover:bg-gray-50"

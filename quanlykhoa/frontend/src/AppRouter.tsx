@@ -6,6 +6,12 @@ import AppFrame from "./layout/AppFrame";
 
 import HomePage from "./pages/HomePage";
 import ClassDetailPage from "./pages/ClassDetailPage";
+import Feature1 from "./pages/features/Feature1";
+import Feature2 from "./pages/features/Feature2";
+import Feature3 from "./pages/features/Feature3";
+import Feature4 from "./pages/features/Feature4";
+import Feature5 from "./pages/features/Feature5";
+import Feature6 from "./pages/features/Feature6";
 import AnnouncementDetailPage from "./pages/AnnouncementDetailPage";
 
 import LoginPage from "./pages/auth/LoginPage";

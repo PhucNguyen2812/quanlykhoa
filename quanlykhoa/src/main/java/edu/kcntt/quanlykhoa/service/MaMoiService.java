@@ -1,3 +1,4 @@
+
 package edu.kcntt.quanlykhoa.service;
 
 import edu.kcntt.quanlykhoa.entity.MaMoiNhom;
@@ -20,6 +21,7 @@ public class MaMoiService {
     private final MaMoiRepository maMoiRepo;
     private final NhomRepository nhomRepo;
     private final JdbcTemplate jdbc;
+    private final SecureRandom rnd = new SecureRandom();
 
     public MaMoiService(MaMoiRepository maMoiRepo, NhomRepository nhomRepo, JdbcTemplate jdbc) {
         this.maMoiRepo = maMoiRepo;
@@ -27,23 +29,20 @@ public class MaMoiService {
         this.jdbc = jdbc;
     }
 
-    private static final String ALPHABET = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
-    private static final SecureRandom R = new SecureRandom();
-
-    private String genCode() {
-        StringBuilder sb = new StringBuilder(8);
-        for (int i = 0; i < 8; i++) sb.append(ALPHABET.charAt(R.nextInt(ALPHABET.length())));
-        return sb.toString();
+    private String randomCode() {
+        String alphabet = "abcdefghijklmnopqrstuvwxyz0123456789";
+        String code;
+        do {
+            StringBuilder sb = new StringBuilder();
+            for (int i = 0; i < 7; i++) sb.append(alphabet.charAt(rnd.nextInt(alphabet.length())));
+            code = sb.toString();
+        } while (maMoiRepo.existsByCode(code));
+        return code;
     }
 
     public MaMoiNhom taoMaMoi(UUID lopId, NguoiDung nguoi, OffsetDateTime expiresAt, int maxUses, String moTa) {
-        if (nguoi.getVaiTro() == NguoiDung.VaiTro.GV)
-            throw new BusinessException("Giảng viên không được tạo mã mời.");
-
-        nhomRepo.findById(lopId).orElseThrow(() -> new BusinessException("Không tìm thấy lớp."));
-
-        String code;
-        do { code = genCode(); } while (maMoiRepo.existsByCode(code));
+        if (!nhomRepo.existsById(lopId)) throw new BusinessException("Nhóm không tồn tại.");
+        String code = randomCode();
 
         MaMoiNhom m = new MaMoiNhom();
         m.setLopId(lopId);
@@ -72,5 +71,9 @@ public class MaMoiService {
                 return null;
             }
         );
+    }
+
+    public MaMoiNhom findLatestActive(UUID lopId) {
+        return maMoiRepo.findTopByLopIdAndBatTrueOrderByCreatedAtDesc(lopId).orElse(null);
     }
 }
